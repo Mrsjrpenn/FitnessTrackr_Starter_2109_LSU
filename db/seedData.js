@@ -7,6 +7,7 @@ async function dropTables() {
     console.log("Dropping All Tables...");
     // drop all tables, in the correct order
     await client.query(`
+      DROP TABLE IF EXISTS routines;
       DROP TABLE IF EXISTS activities;
       DROP TABLE IF EXISTS users;
     `);
@@ -33,12 +34,18 @@ async function createTables() {
         name VARCHAR(255) UNIQUE NOT NULL,
         description TEXT NOT NULL
       );
-
+      CREATE TABLE routines(
+        id SERIAL PRIMARY KEY,
+        "creatorid" INTEGER REFERENCES users(id),
+        "IsPublic" BOOLEAN DEFAULT false,
+        name VARCHAR(255) UNIQUE NOT NULL,
+        goal TEXT NOT NULL
+      );
     `);
 
     console.log("Finished buidling tables!");
   } catch (error) {
-    console.error("Error building tables!");
+    console.error(error);
   }
 }
 
@@ -213,10 +220,10 @@ async function rebuildDB() {
   try {
     await dropTables();
     await createTables();
-    await createInitialUsers();
-    await createInitialActivities();
-    await createInitialRoutines();
-    await createInitialRoutineActivities();
+    // await createInitialUsers();
+    // await createInitialActivities();
+    // await createInitialRoutines();
+    // await createInitialRoutineActivities();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
