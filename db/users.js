@@ -74,6 +74,8 @@ async function getUserByUsername(userName) {
     `,
       [userName]
     );
+    delete user.password
+    return user
   } catch (error) {
     console.error(error);
   }
