@@ -1,11 +1,23 @@
 const client = require("./client");
 
 // database functions
-async function getAllActivities() {}
+async function getAllActivities() {
+  try{
+    const { rows: [activities] } = await client.query(`
+      SELECT *
+      FROM activities;
+    `)
+    return [activities];
+  } catch(error){
+    console.error(error);
+  }
+}
 
 async function getActivityById(id) {}
 
-async function getActivityByName(name) {}
+async function getActivityByName(name) {
+
+}
 
 async function attachActivitiesToRoutines(routines) {}
 
