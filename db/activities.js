@@ -18,8 +18,15 @@ async function attachActivitiesToRoutines(routines) {
 
 // select and return an array of all activities
 async function createActivity({ name, description }) {
-
-}
+try{
+  const {rows: [activity]}=await client.query(`
+  INSERT INTO activities(name,description)
+  VALUES ($1,$2)
+  ON CONFLICT (name)DO NOTHING
+  RETURNING name,description;
+  `,[name,description]);
+return activity
+}catch(error){console.error(error)}
 
 // return the new activity
 async function updateActivity({ id, ...fields }) {
