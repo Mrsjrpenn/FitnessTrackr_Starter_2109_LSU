@@ -25,7 +25,24 @@ async function createUser({ username, password }) {
   }
 }
 
-async function getUser({ username, password }) {}
+async function getUser({ username, password }) {
+  try{
+    const { rows: [user] } = await client.query(`
+    SELECT *
+    FROM users
+    WHERE username = $1
+    `,[username]);
+    if (await bcrypt.compare(password, user.password)){
+      delete user.password
+      return user
+    } else {
+      return null
+    }
+
+  } catch(error){
+    console.error(error);
+  }
+}
 
 async function getUserById(userId) {
   try {
@@ -41,7 +58,13 @@ async function getUserById(userId) {
   }
 }
 
-async function getUserByUsername(userName) {}
+async function getUserByUsername(userName) {
+  try{
+
+  }catch(error){
+    console.error(error)
+  }
+}
 
 module.exports = {
   createUser,
