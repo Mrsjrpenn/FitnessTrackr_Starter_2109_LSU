@@ -32,11 +32,16 @@ async function getActivityById(id) {
 
 async function getActivityByName(name) {
   try {
-    const {rows: [activities]} = await client.query(`
+    const {
+      rows: [activities],
+    } = await client.query(
+      `
       SELECT *
       FROM activities
       WHERE name = $1;
-    `,[name]);
+    `,
+      [name]
+    );
     return activities;
   } catch (error) {
     console.error(error);
@@ -65,7 +70,27 @@ async function createActivity({ name, description }) {
 }
 
 // return the new activity
-async function updateActivity({ id, ...fields }) {}
+async function updateActivity({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  try {
+    const {
+      rows: [activity],
+    } = await client.query(
+      `
+    UPDATE activities
+    SET ${setString}
+    WHERE id= ${id}
+    RETURNING *;
+    `,
+      Object.values(fields)
+    );
+    return activity;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // don't try to update the id
 // do update the name and description
