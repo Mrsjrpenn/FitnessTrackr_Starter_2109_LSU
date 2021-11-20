@@ -21,7 +21,7 @@ async function getRoutineById(id) {
 async function getRoutinesWithoutActivities() {
   try {
     const { rows } = await client.query(`
-    SELECT* FROM routines;
+    SELECT * FROM routines;
 
     `);
     return rows;
@@ -93,6 +93,7 @@ async function getAllRoutines() {
   }
 }
 
+
 async function getAllRoutinesByUser({ username }) {
   try {
     const { rows } = await client.query(`
@@ -116,9 +117,42 @@ async function getAllRoutinesByUser({ username }) {
     ON routine_activities."routineId" = routines.id
     LEFT JOIN activities
     ON routine_activities."activityId" = activities.id
-    
-    `);
-    return rows;
+    WHERE users.username = $1
+    `,[username]);
+
+    const fixedRoutines = {};
+
+    const getActivityFromRow = (row) => {
+      return {
+        id: row.activityId,
+        name: row.activityName,
+        description: row.activityDescription,
+        duration: row.duration,
+        count: row.count,
+        routineId: row.routineId,
+        routineActivityId: row.routineActivityId,
+      };
+    };
+
+    for (const row of rows) {
+      if (fixedRoutines[row.routineId]) {
+        fixedRoutines[row.routineId].activities.push(getActivityFromRow(row));
+      } else {
+        fixedRoutines[row.routineId] = {
+          id: row.routineId,
+          isPublic: row.isPublic,
+          name: row.name,
+          goal: row.goal,
+          creatorId: row.creatorId,
+          creatorName: row.creatorName,
+          activities: row.activityId ? [getActivityFromRow(row)] : [],
+        };
+      }
+    }
+
+    const routines = Object.values(fixedRoutines);
+
+    return routines;
   } catch (error) {
     console.error(error);
   }
@@ -220,11 +254,11 @@ async function updateRoutine({ id, ...fields }) {
       rows: [routine],
     } = await client.query(
       `
-UPDATE routines
-SET ${setString}
-WHERE id= ${id}
-RETURNING *;
-`,
+    UPDATE routines
+    SET ${setString}
+    WHERE id= ${id}
+    RETURNING *;
+    `,
       Object.values(fields)
     );
     return routine;
@@ -233,19 +267,24 @@ RETURNING *;
   }
 }
 
+
 async function destroyRoutine(id) {
   try {
-    const {
-      rows: [routine],
-    } = await client.query(
+    await client.query(
       `
-   DELETE FROM routines
-   WHERE id=$1
-   RETURNING *;
+    DELETE FROM routine_activities
+    WHERE routine_activities."routineId"=$1
    `,
       [id]
     );
-    return routine;
+    await client.query(
+      `
+    DELETE FROM routines
+    WHERE id=$1
+   `,
+      [id]
+    );
+    
   } catch (error) {
     console.error(error);
   }
