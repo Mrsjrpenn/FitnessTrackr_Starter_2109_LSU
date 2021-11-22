@@ -9,7 +9,9 @@
     "start:dev": "nodemon server.js",
     "start": "node server.js",
     "test": "jest --runInBand --coverage",
-    "test:watch": "jest --runInBand --watchAll"
+    "test:watch": "jest --runInBand --watchAll",
+    "build": "npm install --prefix Front_End && npm run build --prefix Front_End "
+
   },
   "repository": {
     "type": "git",
