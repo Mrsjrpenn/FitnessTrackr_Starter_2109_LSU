@@ -10,7 +10,7 @@ const App = () => {
         <NavBar />
         <Switch>
           <Route exact to='/'>
-        
+            
           </Route>
         </Switch>
       </Router>
