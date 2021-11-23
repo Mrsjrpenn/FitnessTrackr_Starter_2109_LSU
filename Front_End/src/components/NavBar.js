@@ -9,8 +9,8 @@ const NavBar = () => {
       </header>
       <div>
         <NavLink to="/">Home</NavLink>
-        {/* <NavLink>Routines</NavLink>
-        <NavLink>My Routines</NavLink>
+        <NavLink to="/PublicRoutines">Routines</NavLink>
+        {/*<NavLink>My Routines</NavLink>
         <NavLink>Activities</NavLink>
         <NavLink>Login</NavLink>
         <NavLink>Register</NavLink> */}
