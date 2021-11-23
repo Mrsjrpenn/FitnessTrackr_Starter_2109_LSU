@@ -8,7 +8,7 @@ const NavBar = () => {
         <h1>Fitness Tracker</h1>
       </header>
       <div>
-        <NavLink exact to="/">
+        <NavLink to="/">
           Home
         </NavLink>
         <NavLink>Routines</NavLink>
