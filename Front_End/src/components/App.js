@@ -8,11 +8,6 @@ const App = () => {
     <main>
       <Router>
         <NavBar />
-        <Switch>
-          <Route exact to='/'>
-            
-          </Route>
-        </Switch>
       </Router>
     </main>
   );

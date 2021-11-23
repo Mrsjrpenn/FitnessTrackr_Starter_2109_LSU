@@ -8,14 +8,12 @@ const NavBar = () => {
         <h1>Fitness Tracker</h1>
       </header>
       <div>
-        <NavLink to="/">
-          Home
-        </NavLink>
-        <NavLink>Routines</NavLink>
+        <NavLink to="/">Home</NavLink>
+        {/* <NavLink>Routines</NavLink>
         <NavLink>My Routines</NavLink>
         <NavLink>Activities</NavLink>
         <NavLink>Login</NavLink>
-        <NavLink>Register</NavLink>
+        <NavLink>Register</NavLink> */}
       </div>
     </nav>
   );
