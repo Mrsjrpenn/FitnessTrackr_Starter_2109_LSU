@@ -10,8 +10,8 @@ const NavBar = () => {
       <div>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/routines">Routines</NavLink>
-        {/* <NavLink>My Routines</NavLink>
-        <NavLink>Activities</NavLink> */}
+        {/*<NavLink>My Routines</NavLink>*/}
+        <NavLink to="/activities">Activities</NavLink>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/register">Register</NavLink>
       </div>

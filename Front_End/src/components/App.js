@@ -4,10 +4,11 @@ import NavBar from "./NavBar";
 import PublicRoutines from "./Routines/PublicRoutines";
 import RegisterForm from "./User/RegistrationForm";
 import LoginForm from "./User/LoginForm";
+import Activities from "./Activities/Activities";
 
 const App = () => {
   const [token, setToken] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <main>
@@ -18,10 +19,13 @@ const App = () => {
             <PublicRoutines />
           </Route>
           <Route path="/register">
-            <RegisterForm/>
+            <RegisterForm />
           </Route>
           <Route path="/login">
             <LoginForm setToken={setToken} setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          <Route path="/activities">
+            <Activities />
           </Route>
         </Switch>
       </Router>
