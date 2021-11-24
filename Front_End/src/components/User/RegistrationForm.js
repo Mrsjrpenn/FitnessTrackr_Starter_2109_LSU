@@ -15,7 +15,6 @@ const RegisterForm = () => {
     if(password === confirmPassword){
       setDoPasswordsMatch(true);
       const result = await registerUser(username, password)
-      console.log("HERE IS REGISTER RESPONSE", result)
       localStorage.setItem('token', result.token)
       history.push('/')
     } else {

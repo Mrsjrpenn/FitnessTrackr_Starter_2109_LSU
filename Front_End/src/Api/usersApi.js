@@ -46,9 +46,33 @@ export async function getMyRoutines(token, username) {
         Authorization: `Bearer ${token}`,
       },
     });
-    const result = await response.json();
+    let result;
+    try{
+      result = await response.json();
+    } catch (error){
+      return []
+    } 
     return result;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function getUser(token) {
+  try {
+    const response = await fetch(`${BASE_URL}/users/me`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      }
+    })
+    const result = await response.json();
+    if( result.error){
+      console.error(result)
+      return
+    }
+    return result
+  } catch (error) {
+    console.error(error)
   }
 }

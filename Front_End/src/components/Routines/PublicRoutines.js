@@ -26,7 +26,6 @@ const PublicRoutines = () => {
     //   setRoutinesList(routines)
     // })()
   }, []);
-  console.log("HERE IS ROUTINES LIST", routinesList);
   return (
     <>
       {routinesList.map((routines) => (

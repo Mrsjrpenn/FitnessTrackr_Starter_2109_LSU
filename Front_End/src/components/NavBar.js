@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
-const NavBar = ({setIsLoggedIn, setToken, isLoggedIn}) => {
+const NavBar = ({setIsLoggedIn, setToken, isLoggedIn, theUsername}) => {
   const history = useHistory();
 
   const handleClick = () => {
@@ -19,7 +19,7 @@ const NavBar = ({setIsLoggedIn, setToken, isLoggedIn}) => {
       <div>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/routines">Routines</NavLink>
-        {/*<NavLink>My Routines</NavLink>*/}
+        { isLoggedIn ? <NavLink to={`/${theUsername}/myroutines`} >My Routines</NavLink> : null}
         <NavLink to="/activities">Activities</NavLink>
         { isLoggedIn ? null : <NavLink to="/login">Login</NavLink>}
         { isLoggedIn ? null : <NavLink to="/register">Register</NavLink>}

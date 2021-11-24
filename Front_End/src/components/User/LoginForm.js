@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { loginUser } from "../../Api/usersApi";
 
-const LoginForm = ({setToken, setIsLoggedIn}) => {
+const LoginForm = ({setToken, setIsLoggedIn, setTheUsername, theUsername}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const {token} = await loginUser(username, password);
-    localStorage.setItem('token', token);
-    setToken(token)
+    const user = await loginUser(username, password);
+    localStorage.setItem('token', user.token);
+    setToken(user.token)
     setIsLoggedIn(true)
     history.push("/")
   }
