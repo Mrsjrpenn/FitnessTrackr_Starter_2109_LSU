@@ -13,7 +13,7 @@ const App = () => {
   return (
     <main>
       <Router>
-        <NavBar />
+        <NavBar setIsLoggedIn={setIsLoggedIn} setToken={setToken} isLoggedIn={isLoggedIn}/>
         <Switch>
           <Route path="/routines">
             <PublicRoutines />
@@ -22,10 +22,10 @@ const App = () => {
             <RegisterForm />
           </Route>
           <Route path="/login">
-            <LoginForm setToken={setToken} setIsLoggedIn={setIsLoggedIn} />
+            <LoginForm setToken={setToken} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="/activities">
-            <Activities />
+            <Activities isLoggedIn={isLoggedIn} token={token} />
           </Route>
         </Switch>
       </Router>

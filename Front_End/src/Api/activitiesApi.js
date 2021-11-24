@@ -1,6 +1,6 @@
 const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
 
-export async function getActivities(BASE_URL) {
+export async function getActivities() {
   try {
     const response = await fetch(`${BASE_URL}/activities`, {
       headers: {
@@ -14,7 +14,7 @@ export async function getActivities(BASE_URL) {
   }
 }
 
-export async function createActivities(token, name, description, BASE_URL) {
+export async function createActivities(token, name, description) {
   try {
     const response = await fetch(`${BASE_URL}/activities`, {
       method: "POST",
@@ -38,7 +38,6 @@ export async function updateActivities(
   name,
   description,
   activitiesId,
-  BASE_URL
 ) {
   try {
     const response = await fetch(`${BASE_URL}/activities/${activitiesId}`, {

@@ -2,7 +2,6 @@ const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
 
 export async function updateRoutine_Activities(
   routine_activitiesId,
-  BASE_URL,
   count,
   duration
 ) {
@@ -27,7 +26,7 @@ export async function updateRoutine_Activities(
   }
 }
 
-export async function updateRoutine_Activities(routine_activitiesId, BASE_URL) {
+export async function updateRoutine_Activities(routine_activitiesId) {
   try {
     const response = await fetch(
       `${BASE_URL}/routine_activities/${routine_activitiesId}`,
