@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 // const { requireUser } = require("../db/users");
 const {
-  createActivities,
-  updateActivities,
+  createActivity,
+  updateActivity,
   getAllActivities,
 } = require("../db/activities");
 
@@ -20,23 +20,25 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get("/activities", async (req, res) => {
+// need to change the URL's 
+
+router.get("/", async (req, res) => {
   try {
     console.log("Calling");
     const response = await getAllActivities();
-    console.log("HERE IS THE RESPONSE", response);
     res.send(response);
   } catch (error) {
     throw error;
   }
 });
-router.post("/api/activities", async (req, res) => {
-  const { name, description } = req.body;
-  const activity = {};
+
+router.post("/", async (req, res) => {
+  // const { name, description } = req.body;
+  // const activity = {};
   try {
-    activity.name = name;
-    activity.description = description;
-    const newActivity = await createActivities(activity);
+    // activity.name = name;
+    // activity.description = description;
+    const newActivity = await createActivity(req);
     if (newActivity) {
       res.send(newActivity);
     }
@@ -44,10 +46,11 @@ router.post("/api/activities", async (req, res) => {
     throw error;
   }
 });
-router.patch("/api/activities/:activityId", async (req, res) => {
+
+router.patch("/:activityId", async (req, res) => {
   const { activityId } = req.params;
   try {
-    const updatedActivities = await updateActivities({ activityId });
+    const updatedActivities = await updateActivity({ activityId });
     if (updatedActivities) {
       res.send(updatedActivities);
     }

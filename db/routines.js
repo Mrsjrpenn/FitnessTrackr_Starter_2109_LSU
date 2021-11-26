@@ -319,7 +319,6 @@ async function getPublicRoutinesByActivity({ id }) {
     `,
       [id]
     );
-    console.log("these are the rows", rows);
     const fixedRoutines = {};
 
     const getActivityFromRow = (row) => {
