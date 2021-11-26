@@ -63,7 +63,6 @@ async function createActivity({ name, description }) {
   `,
       [name, description]
     );
-    console.log("HERE IS NEW ACTIVITY", activity)
     return activity;
   } catch (error) {
     console.error(error);

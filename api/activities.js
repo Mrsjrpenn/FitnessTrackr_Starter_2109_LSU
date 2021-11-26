@@ -6,6 +6,7 @@ const {
   updateActivity,
   getAllActivities,
 } = require("../db/activities");
+const { getPublicRoutinesByActivity } = require("../db/routines");
 
 // GET /api/activities/:activityId/routines
 
@@ -20,7 +21,19 @@ router.use((req, res, next) => {
   next();
 });
 
-// need to change the URL's 
+// need to change the URL's
+router.get("/:activityId/routines", async (req, res) => {
+  const { activityId } = req.params;
+  try {
+    const routines = await getPublicRoutinesByActivity({
+      activityId,
+    });
+    console.log("HERE ARE THE PUBLIC ROUTINES", routines);
+    res.send(routines);
+  } catch (error) {
+    throw error;
+  }
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -46,6 +59,19 @@ router.post("/", async (req, res) => {
     throw error;
   }
 });
+
+// router.get("/:activityId/routines", async (req, res) => {
+//   const { activityId } = req.params;
+//   try {
+//     const routines = await getPublicRoutinesByActivity({
+//       activityId,
+//     });
+//     console.log("HERE ARE THE PUBLIC ROUTINES", routines);
+//     res.send(routines);
+//   } catch (error) {
+//     throw error;
+//   }
+// });
 
 router.patch("/:activityId", async (req, res) => {
   const { activityId } = req.params;

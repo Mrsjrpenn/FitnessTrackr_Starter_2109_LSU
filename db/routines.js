@@ -350,7 +350,7 @@ async function getPublicRoutinesByActivity({ id }) {
     }
 
     const routines = Object.values(fixedRoutines);
-
+    console.log("HERE ARE ROUTINES", routines);
     return routines;
   } catch (error) {
     console.error(error);
