@@ -5,15 +5,6 @@ const PublicRoutines = () => {
   const [routinesList, setRoutinesList] = useState([]);
 
   useEffect(() => {
-    // fetch("https://fitnesstrac-kr.herokuapp.com/api/routines")
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     console.log(result);
-    //     setRoutinesList(result);
-    //   })
-    //   .catch(function (error) {
-    //     console.error(error);
-    //   });
 
     const newRoutines = async () => {
       const routines = await getPublicRoutines();
@@ -21,16 +12,13 @@ const PublicRoutines = () => {
     };
     newRoutines();
 
-    // (async ()=>{
-    //   const routines = await getPublicRoutines()
-    //   setRoutinesList(routines)
-    // })()
   }, []);
   return (
     <>
+      <h1>Public Routines</h1>
       {routinesList.map((routines) => (
         <div key={routines.id}>
-          <h1>Routines</h1>
+          <h2>Routine</h2>
           <h2>User: {routines.creatorName}</h2>
           <h2>Name: {routines.name}</h2>
           <h3>goal: {routines.goal}</h3>

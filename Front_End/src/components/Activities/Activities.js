@@ -48,8 +48,8 @@ const Activities = ({isLoggedIn, token}) => {
       {activitiesList.map((activity) => {
         return (
           <div>
-            <p>Name {activity.name}</p>
-            <p>Description {activity.description}</p>
+            <p>Name: {activity.name}</p>
+            <p>Description: {activity.description}</p>
           </div>
         );
       })}

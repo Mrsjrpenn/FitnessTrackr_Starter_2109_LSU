@@ -43,7 +43,7 @@ export async function getMyRoutines(token, username) {
     const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
     let result;
